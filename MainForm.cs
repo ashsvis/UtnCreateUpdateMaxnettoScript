@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 namespace UtnCreateUpdateMaxnettoScript
@@ -17,11 +12,22 @@ namespace UtnCreateUpdateMaxnettoScript
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnLoadFromTable_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                LoadExcelFile(openFileDialog1.FileName);
+                try
+                {
+                    btnSaveToFile.Enabled = false;
+                    tabControl1.SelectedIndex = 0;
+                    LoadExcelFile(openFileDialog1.FileName);
+                    tabControl1.SelectedIndex = 1;
+                    btnSaveToFile.Enabled = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, ex.Message, "Что-то пошло не так...", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -80,6 +86,7 @@ namespace UtnCreateUpdateMaxnettoScript
                             column.Width = Convert.ToInt32(dict[names[col + 1]]);
                         }
                     }
+                    CreateScript(arrData);
                 }
                 finally
                 {
@@ -90,6 +97,20 @@ namespace UtnCreateUpdateMaxnettoScript
             {
                 xl.Quit();
                 Cursor = Cursors.Default;
+            }
+        }
+
+        private void CreateScript(object[,] arrData)
+        {
+            lbScript.Items.Clear();
+            var rowCount = arrData.GetLength(0);
+            var columnCount = arrData.GetLength(1);
+            for (var row = 3; row <= rowCount; row++)
+            {
+                var maxnetto = $"{arrData[row, 4]}";
+                var number = $"{arrData[row, 2]}";
+                var line = $"UPDATE[UTN].[dbo].[WAGGONS] SET[MAXNETTO] = {maxnetto} WHERE[NUMBER] = '{number}'";
+                lbScript.Items.Add(line);
             }
         }
 
@@ -110,6 +131,33 @@ namespace UtnCreateUpdateMaxnettoScript
                 index = (index - 1) / 26;
                 if (index <= letters.Length)
                     return result;
+            }
+        }
+
+        private void btnSaveToFile_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                SaveScriptFile(saveFileDialog1.FileName);
+            }
+        }
+
+        private void SaveScriptFile(string fileName)
+        {
+            var list = new List<string>();
+            foreach (var item in lbScript.Items)
+            {
+                list.Add($"{item}");
+            }
+            try
+            {
+                if (File.Exists(fileName))
+                    File.Delete(fileName);
+                File.WriteAllLines(fileName, list, System.Text.Encoding.Default);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Что-то пошло не так...", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

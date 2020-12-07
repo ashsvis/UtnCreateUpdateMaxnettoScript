@@ -28,25 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnLoadFromTable = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.lvTable = new System.Windows.Forms.ListView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lbScript = new System.Windows.Forms.ListBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.btnSaveToFile = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button1
+            // btnLoadFromTable
             // 
-            this.button1.Location = new System.Drawing.Point(14, 14);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(142, 26);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Загрузить таблицу...";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnLoadFromTable.Location = new System.Drawing.Point(14, 14);
+            this.btnLoadFromTable.Name = "btnLoadFromTable";
+            this.btnLoadFromTable.Size = new System.Drawing.Size(142, 26);
+            this.btnLoadFromTable.TabIndex = 0;
+            this.btnLoadFromTable.Text = "Загрузить таблицу...";
+            this.btnLoadFromTable.UseVisualStyleBackColor = true;
+            this.btnLoadFromTable.Click += new System.EventHandler(this.btnLoadFromTable_Click);
             // 
             // tabControl1
             // 
@@ -88,18 +92,49 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.lbScript);
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(817, 346);
+            this.tabPage2.Size = new System.Drawing.Size(817, 367);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Результирующий скрипт";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // lbScript
+            // 
+            this.lbScript.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbScript.FormattingEnabled = true;
+            this.lbScript.ItemHeight = 15;
+            this.lbScript.Location = new System.Drawing.Point(6, 6);
+            this.lbScript.Name = "lbScript";
+            this.lbScript.Size = new System.Drawing.Size(805, 349);
+            this.lbScript.TabIndex = 0;
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.DefaultExt = "xls";
             this.openFileDialog1.Filter = "*.xls|*.xls|*.xlsx|*.xlsх";
+            // 
+            // btnSaveToFile
+            // 
+            this.btnSaveToFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveToFile.Enabled = false;
+            this.btnSaveToFile.Location = new System.Drawing.Point(699, 14);
+            this.btnSaveToFile.Name = "btnSaveToFile";
+            this.btnSaveToFile.Size = new System.Drawing.Size(142, 26);
+            this.btnSaveToFile.TabIndex = 0;
+            this.btnSaveToFile.Text = "Выгрузить в файл...";
+            this.btnSaveToFile.UseVisualStyleBackColor = true;
+            this.btnSaveToFile.Click += new System.EventHandler(this.btnSaveToFile_Click);
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.DefaultExt = "sql";
+            this.saveFileDialog1.FileName = "UpdateMaxnettoScript.sql";
+            this.saveFileDialog1.Filter = "*.sql|*.sql";
             // 
             // MainForm
             // 
@@ -107,25 +142,30 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(853, 455);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnSaveToFile);
+            this.Controls.Add(this.btnLoadFromTable);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
             this.Text = "Создание скрипта на изменение MAXNETTO для вагонов";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnLoadFromTable;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.ListView lvTable;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.ListBox lbScript;
+        private System.Windows.Forms.Button btnSaveToFile;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }
 
