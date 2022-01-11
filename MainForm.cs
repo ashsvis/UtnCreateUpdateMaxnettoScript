@@ -109,6 +109,7 @@ namespace UtnCreateUpdateMaxnettoScript
             {
                 var maxnetto = $"{arrData[row, 4]}";
                 var number = $"{arrData[row, 2]}";
+                if (string.IsNullOrWhiteSpace(maxnetto) || string.IsNullOrWhiteSpace(number)) continue;
                 var line = $"UPDATE[UTN].[dbo].[WAGGONS] SET[MAXNETTO] = {maxnetto} WHERE[NUMBER] = '{number}'";
                 lbScript.Items.Add(line);
             }
