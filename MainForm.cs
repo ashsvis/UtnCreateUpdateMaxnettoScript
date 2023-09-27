@@ -137,6 +137,7 @@ namespace UtnCreateUpdateMaxnettoScript
 
         private void btnSaveToFile_Click(object sender, EventArgs e)
         {
+            saveFileDialog1.FileName = Path.GetFileNameWithoutExtension(openFileDialog1.FileName);
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 SaveScriptFile(saveFileDialog1.FileName);
